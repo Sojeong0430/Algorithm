@@ -1,23 +1,15 @@
+num = int(input())
 stulist=[]
-n=int(input())
-avelist=[]
-for i in range(n):
-    newlist=list(map(int,input().split()))
-    stulist.append(newlist)
 
-for i in stulist :
-    sum = 0
-    for k in range(1,len(i)) :
-        sum += i[k]
-    ave = round(sum/i[0],10)
-    avelist.append(ave)
+for _ in range(num):
+    scores = list(map(int,input().split()))
+    avg = sum(scores[1:]) / scores[0]
 
-cnt=0
-for i in stulist :
-    avemem=float(0)
-    for k in range(1,len(i)):
-        if i[k] > avelist[cnt] :
-            avemem+=1
-    averate = round(avemem / float(i[0])*100,3)
-    print(averate,"%")
-    cnt+=1
+    cnt=0
+    for i in range(1,len(scores)):
+        if scores[i] > avg :
+            cnt+=1
+    stulist.append(round(cnt/scores[0]*100,3))
+
+for i in stulist:
+    print(i,"%")
