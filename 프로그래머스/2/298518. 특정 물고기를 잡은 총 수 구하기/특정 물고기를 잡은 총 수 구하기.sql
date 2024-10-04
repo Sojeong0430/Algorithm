@@ -1,0 +1,4 @@
+-- 코드를 작성해주세요
+select count(*) as FISH_COUNT
+from FISH_INFO FI JOIN FISH_NAME_INFO NA on FI.FISH_TYPE = NA.FISH_TYPE
+where FISH_NAME = 'BASS' or FISH_NAME = 'SNAPPER';
