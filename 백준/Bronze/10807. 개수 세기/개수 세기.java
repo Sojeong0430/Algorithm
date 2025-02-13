@@ -2,20 +2,20 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int count = 0 ;
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+        Scanner sc = new Scanner(System.in);
 
-        for (int i = 0 ; i < n ; i++){
-            arr[i] = scanner.nextInt();
-        }
+        int n = sc.nextInt();
+        sc.nextLine();
+        String input = sc.nextLine();
+        String[] strNum = input.split(" ");
 
-        int b = scanner.nextInt();
+        int v = sc.nextInt();
 
-        for(int i = 0 ; i < arr.length ; i++){
-            if(b==arr[i]){
-                count++;
+        int count = 0;
+
+        for (String num : strNum) {
+            if (Integer.parseInt(num) == v) {
+                count += 1;
             }
         }
         System.out.println(count);
