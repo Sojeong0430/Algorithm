@@ -2,39 +2,37 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static int n, m;
+    static boolean[] visited; // 방문 여부를 기록하는 배열
+    static int[] result; // 선택한 숫자를 저장하는 배열
+    static StringBuilder sb;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        boolean[] checked = new boolean[N + 1];
-        int[] arr = new int[N + 1];
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        sb = new StringBuilder();
 
-        class Backtrack {
-            void run(int depth, int start) throws IOException {
-                if (depth == M) {
-                    for (int i = 0; i < M; i++) {
-                        bw.write(arr[i] + " ");
-                    }
-                    bw.write("\n");
-                    return;
-                }
-                for (int i = start; i <= N; i++) {
-                    if (!checked[i]) {
-                        checked[i] = true;
-                        arr[depth] = i;
-                        run(depth + 1, i + 1);
-                        checked[i] = false;
-                    }
-                }
+        visited = new boolean[n + 1];
+        result = new int[m];
+        backtrack(0,1);
+        System.out.println(sb);
+    }
+
+    static void backtrack(int depth, int start) {
+        if(depth == m){ // M개가 선택 되었다면 재귀를 멈추고 출력
+            for(int num : result){
+                sb.append(num).append(" ");
             }
+            sb.append("\n");
+            return;
         }
 
-        new Backtrack().run(0, 1);
-        bw.flush();
-        bw.close();
-        br.close();
+        for(int i = start ; i <= n ; i++){
+            result[depth] = i;
+            backtrack(depth+1, i+1); // 현재 선택된 수보다 큰 값부터
+        }
     }
-}
+} 
