@@ -3,22 +3,24 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         
-        String[] strNumbers = new String[numbers.length];
-        for(int i = 0 ; i < numbers.length ; i++){
-            strNumbers[i] = String.valueOf(numbers[i]);
+        String newArray[] = new String[numbers.length];
+        
+        for (int i = 0; i < numbers.length; i++) {
+            newArray[i] = String.valueOf(numbers[i]);
         }
         
-        Arrays.sort(strNumbers, (a, b) -> (b + a).compareTo(a + b));
+        Arrays.sort(newArray, (a,b) -> (b+a).compareTo(a+b));
         
-        if (strNumbers[0].equals("0")) {
+        StringBuilder sb = new StringBuilder();
+        
+        for(String s: newArray){
+            sb.append(s);
+        }
+        
+        if(sb.charAt(0) == '0'){
             return "0";
         }
         
-        StringBuilder answer = new StringBuilder();
-        for(String num : strNumbers){
-            answer.append(num);
-        }
-        
-        return answer.toString();
+        return sb.toString();
     }
 }
