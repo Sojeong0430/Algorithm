@@ -1,17 +1,25 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[][] sizes) {
         
-        int maxW = 0;
-        int maxH = 0;
+        int max = 0;
         
-        for(int[] size : sizes){
-            int w = Math.max(size[0], size[1]);
-            int h = Math.min(size[0], size[1]);
-            
-            maxW = Math.max(maxW, w);
-            maxH = Math.max(maxH, h);
+        for(int[] size: sizes){
+            max = Math.max(max, size[0]);
+            max = Math.max(max, size[1]);
         }
         
-        return maxW * maxH;
+        int preMax = 0;
+        
+        for(int[] size : sizes){
+            int second = Math.min(size[0], size[1]);
+            
+            if(second > preMax){
+                preMax = second;
+            }
+        }
+        
+        return max * preMax;
     }
 }
