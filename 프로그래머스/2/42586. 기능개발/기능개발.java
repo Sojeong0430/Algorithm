@@ -2,54 +2,37 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        List<Integer> answer = new ArrayList();
-        Stack<Integer> leftFeature = new Stack<>();
-        int[] leftDays = new int[progresses.length];
-        int maxLeftDays = 0;
+        int current = 0;
+        List<Integer> list = new ArrayList<>();
         
-        for(int i = 0 ; i < progresses.length ; i++){
-            leftDays[i] = (int) Math.ceil((double) (100 - progresses[i]) / speeds[i]);
-            if (leftDays[i]  > maxLeftDays){
-                maxLeftDays = leftDays[i];
-            }
-        }
-        
-        for(int i = progresses.length - 1 ; i >= 0 ;i--){
-            leftFeature.push(leftDays[i]);
-        }
-
-        for(int i = 1 ; i <= maxLeftDays ; i++){
-            if(leftFeature.size() == 0){
-                break;
+        while(current < progresses.length){
+            for(int i = current ; i < progresses.length ; i++){
+                progresses[i] += speeds[i];
             }
             
-            int count = 0;
-            
-            if(leftFeature.peek() == i){
-                leftFeature.pop();
-                count ++;
-                while(true){
-                    if(leftFeature.size() == 0){
-                        break;
-                    }
-                    
-                    if(leftFeature.peek() <= i){
-                        leftFeature.pop();
-                        count++;
-                    }else{
-                        break;
-                    }
-                }
-                answer.add(count);
+            int d = deploy(current, progresses);
+            if(d!=0){
+                list.add(d);
+                current += d;
             }
         }
         
-        int[] result = new int[answer.size()];
+        int[] arr = list.stream()
+                .mapToInt(i -> i)
+                .toArray();
         
-        for(int i = 0 ; i < answer.size() ; i++){
-            result[i] = answer.get(i);
+        return arr;
+    }
+    
+    private int deploy(int current, int[] progresses){
+        if(current >= progresses.length){
+            return 0;
         }
         
-        return result;
+        if(progresses[current] >= 100){
+            return 1 + deploy(current + 1, progresses);
+        }else{
+            return 0;
+        }
     }
 }
