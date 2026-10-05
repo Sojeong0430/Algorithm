@@ -2,36 +2,38 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
-
-        Queue<int[]> queue = new ArrayDeque<>();
-
-        for (int i = 0; i < priorities.length; i++) {
-            queue.offer(new int[]{i, priorities[i]});
-        }
-
         int count = 0;
-
-        while (true) {
-            int[] current = queue.poll();
-
-            boolean higher = false;
-
-            for (int[] process : queue) {
-                if (process[1] > current[1]) {
-                    higher = true;
+        
+        Queue<Integer> queue = new LinkedList<>();
+        
+        for(int i = 0 ; i < priorities.length ; i++){
+            queue.offer(i);
+        }
+        
+        while(true){
+            int status = 0;
+            int currentProcess = queue.poll();
+            int currentPriority = priorities[currentProcess];
+            
+            for(int processIndex : queue){
+                if(currentPriority < priorities[processIndex]){
+                    queue.offer(currentProcess);
+                    status = 1;
                     break;
                 }
             }
-
-            if (higher) {
-                queue.offer(current);
-            } else {
-                count++;
-                
-                if (current[0] == location) {
-                    return count;
-                }
+            
+            if(status == 1){
+                continue;
+            }else{
+                count += 1;
+            }
+            
+            if(currentProcess == location){
+                break;
             }
         }
+        
+        return count;
     }
 }
