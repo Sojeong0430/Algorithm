@@ -2,27 +2,22 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        List<Integer> numberList = new ArrayList<>();
         
-        for(int num : numbers){
-            numberList.add(num);
+        Integer[] nums = Arrays.stream(numbers).boxed().toArray(Integer[]::new);
+        
+        Arrays.sort(nums, (a, b) -> (b + "" + a).compareTo(a + "" + b));
+        
+        StringBuilder sb = new StringBuilder();
+        for(int n : nums){
+            sb.append(String.valueOf(n));
         }
         
-        numberList.sort((a, b) ->
-           (String.valueOf(b) + String.valueOf(a))
-                .compareTo(String.valueOf(a) + String.valueOf(b))
-        );
+        String result = sb.toString();
         
-        String answer = "";
-        
-        for(int i : numberList){
-            answer += String.valueOf(i);
+        if(result.startsWith("0")){
+            return "0";
         }
         
-        if(answer.charAt(0) == '0'){
-            answer = "0";
-        }
-        
-        return answer;
+        return result;
     }
 }
