@@ -1,20 +1,33 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(int brown, int yellow) {
-        int total = brown + yellow;
+        int sum = brown + yellow;
 
-        for (int height = 1; height <= Math.sqrt(total); height++) {
-
-            if (total % height != 0) {
+        for (int width = 1; width <= sum; width++) {
+            if (sum % width != 0) {
                 continue;
-            }
+            } else {
+                int length = sum / width;
 
-            int width = total / height;
+                int outLineCount = (width * 2) + (length * 2) - 4;
 
-            if ((width - 2) * (height - 2) == yellow) {
-                return new int[]{width, height};
+                if (outLineCount == sum) {
+                    continue;
+                } else {
+                    if (yellow == sum - outLineCount) {
+                        if(width >= length){
+                            return new int[]{width, length};
+                        }else{
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    }
+                }
             }
         }
 
-        return new int[]{};
+        return new int[]{0, 0};
     }
 }
