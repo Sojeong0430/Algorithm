@@ -22,6 +22,10 @@ class Solution {
                 count += 1;
                 dfs(str + alphabet[i]);
             }
+            
+            if(answer != 0){
+                return;
+            }
         }
     }
 }
