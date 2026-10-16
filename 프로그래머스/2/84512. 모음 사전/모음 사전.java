@@ -1,36 +1,27 @@
 import java.util.*;
 
 class Solution {
-    
-    static char[] chars = {'A','E','I','O','U'};
-    static String answer;
-    static int count;
+    int count = 0;
+    int answer = 0;
+    String word;
+    char[] alphabet = new char[]{'A', 'E', 'I', 'O', 'U'};
     
     public int solution(String word) {
-        answer = word;
-        count = 0;
+        this.word = word;
         dfs("");
-        return count -1 ;
+        return answer;
     }
     
-    private boolean dfs(String current) {
-        
-        count++;
-        
-        if (current.equals(answer)) { 
-            return true;
+    void dfs(String str){
+        if(str.equals(word)){
+            answer = count;
         }
         
-        if (current.length() == 5) { 
-            return false;
-        }
-        
-        for (int i = 0; i < chars.length; i++) {
-            if (dfs(current + chars[i])) {
-                return true;
+        for(int i = 0 ; i < alphabet.length ; i++){
+            if(str.length() < 5){
+                count += 1;
+                dfs(str + alphabet[i]);
             }
         }
-        
-        return false;
     }
 }
