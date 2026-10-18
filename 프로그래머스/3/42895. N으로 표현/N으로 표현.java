@@ -1,38 +1,35 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
-public class Solution {
-    public static int solution(int N, int number) {
-        List<HashSet<Integer>> list = new ArrayList<HashSet<Integer>>();
-
-        for (int i = 0; i <= 8; i++)
-            list.add(new HashSet<Integer>());
-        list.get(1).add(N);
-
-        if (number == N) return 1;
-
-        for (int i = 2; i <= 8; i++) {
-            HashSet<Integer> total = list.get(i);
-
-            for (int j = 1; j < i; j++) {
-                HashSet<Integer> a = list.get(j);
-                HashSet<Integer> b = list.get(i - j);
-
-                for (int x : a) {
-                    for (int y : b) {
-                        total.add(x + y);
-                        total.add(x - y);
-                        total.add(x * y);
-                        if (x != 0 && y != 0) total.add(x / y);
+class Solution {
+    public int solution(int N, int number) {
+        Set<Integer>[] dp = new HashSet[9];
+        dp[0] = new HashSet<Integer>();
+        
+        for(int i = 1 ; i < 9 ; i++){
+            dp[i] = new HashSet<Integer>();
+            
+            int repeated = 0;
+            for(int k = 0 ; k < i ; k++){
+                repeated = repeated * 10 + N;
+            }
+            dp[i].add(repeated);
+            
+            for(int n = 1 ; n < i ; n++){
+                for(int j : dp[n]){
+                    for(int k : dp[i-n]){
+                        dp[i].add(j + k);
+                        dp[i].add(j - k);
+                        dp[i].add(j * k);
+                        if(k != 0){
+                            dp[i].add(j / k);
+                        }
                     }
                 }
-                total.add(Integer.parseInt(String.valueOf(N).repeat(i)));
             }
-
-            if (total.contains(number)) return i;
+            if(dp[i].contains(number)){
+                return i;
+            }
         }
-
         return -1;
     }
 }
