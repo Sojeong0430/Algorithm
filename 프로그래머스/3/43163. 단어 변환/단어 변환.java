@@ -52,11 +52,8 @@ class Solution {
         for(int i = 0 ; i < current.length() ; i++){
             if(current.charAt(i) != next.charAt(i)){
                 difCount += 1;
-                if(difCount > 1){
-                    return false;
-                }
             }
         }
-        return true;
+        return difCount == 1;
     }
 }
