@@ -13,7 +13,7 @@ class Solution {
         int right = max;
 
         while (left < right) {
-            int mid = left + (right - left) / 2;
+            int mid = (right + left) / 2;
             long totalTime = times[0];
 
             for (int i = 1; i < diffs.length; i++) {
